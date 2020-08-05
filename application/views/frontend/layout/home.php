@@ -86,75 +86,48 @@
 
   <div class="container marketing">
 
-
     <!-- START THE FEATURETTES -->
-
     <hr class="featurette-divider">
+    
+    <?php foreach($hasil as $key => $value): ?>
+      <?php $valuex = $this->Hasil_model->getSubkriteriaById($value['id_alternatif'])->result_array();?>
+      <div class="row featurette">
+        <div class="col-md-7 <?= ($key%2 == 0) ? 'order-md-2' : 'order-md-1'; ?>">
+          <h2 class="featurette-heading">Banjir woy. <span class="text-muted">siaga</span></h2>
+          <p class="lead">kabar terkini banjir dolo</p>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <?php $alternatif = $this->Hasil_model->getAlternatifById($value['id_alternatif'])->row_array(); ?>
+                    <th class="text-center" style="text-transform: uppercase;" colspan="2"><?= $alternatif['alternatif_nama']; ?></th>
+                  </tr>
+                  <tr>
+                    <th>Kriteria</th>
+                    <th>Nilai</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach($valuex as $vx):?>
+                  <?php $kriteria = $this->Hasil_model->getKriteriaById($vx['id_kriteria'])->row_array(); ?>
+                  <tr>
+                    <td><?=$kriteria['kriteria_nama'];?></td>
+                    <td><?=$vx['subkriteria_nilai']*100;?></td>
+                  </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 <?= ($key%2 == 0) ? 'order-md-1' : 'order-md-2'; ?>">
+          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+        </div>
+      </div>
 
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">Banjir woy. <span class="text-muted">siaga</span></h2>
-        <p class="lead">kabar terkini banjir dolo</p>
-      </div>
-      <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-              <th rowspan="2" class="text-center">Alternatif</th>
-              <th colspan="<?=count($kriteria)+1;?>" class="text-center">Kriteria</th>
-            </tr>
-            <tr>
-              <?php foreach($kriteria as $k): ?>
-              <th><?=$k['kriteria_nama'];?></th>
-              <?php endforeach; ?>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach($hasil as $h): ?>
-            <tr>
-              <td><?=$h['alternatif_nama'];?></td>
-              <?php $value = $this->Hasil_model->getSubkriteriaById($h['id_alternatif'])->result_array();?>
-              <?php foreach($value as $v): ?>
-              <td><?=$v['subkriteria_nilai']*100;?></td>
-              <?php endforeach; ?>
-            </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-      <div class="col-md-5">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">santai bro yg ini msih aman <span class="text-muted">aman</span></h2>
-        <p class="lead">kabar terkini banjir kulawi</p>
-      </div>
-      <div class="col-md-5 order-md-1">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">bingung :( <span class="text-muted">eheheh</span></h2>
-        <p class="lead">anjay blum jadi.</p>
-      </div>
-      <div class="col-md-5">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
+      <hr class="featurette-divider">
+    <?php endforeach; ?>
 
     <!-- /END THE FEATURETTES -->
 

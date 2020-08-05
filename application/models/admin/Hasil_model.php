@@ -10,7 +10,7 @@ class Hasil_model extends CI_Model {
     $this->db->join('kriteria', 'kriteria.kriteria_id = penilaian.id_kriteria', 'left');
     $this->db->join('subkriteria', 'subkriteria.subkriteria_id = penilaian.id_subkriteria', 'left');
     $this->db->group_by('alternatif.alternatif_id');
-    $this->db->order_by('sumNilai', 'desc');
+    // $this->db->order_by('sumNilai', 'desc');
     return $this->db->get('penilaian');
   }
 
@@ -48,6 +48,11 @@ class Hasil_model extends CI_Model {
   public function getAlternatif()
   {
     return $this->db->get('alternatif');
+  }
+
+  public function getAlternatifById($id)
+  {
+    return $this->db->get_where('alternatif', ['alternatif_id'=>$id]);
   }
 
 }
